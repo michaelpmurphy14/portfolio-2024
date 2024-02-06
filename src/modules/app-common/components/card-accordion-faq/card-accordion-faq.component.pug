@@ -1,0 +1,31 @@
+.accordion.mb-5
+
+    .accordion-item(
+        *ngIf='header'
+    )
+        .accordion-body
+            .d-flex.justify-content-between.align-items-center.py-3
+                .me-2
+                    h4.mb-0
+                        ng-content(select='.header-title')
+                    p.small.text-gray-500.mb-0
+                        ng-content(select='.header-subtitle')
+                .ms-2
+                    .badge.bg-success-soft.rounded-pill.text-success {{faqs.length}} Answers
+
+    .accordion-item(
+        *ngFor='let faq of faqs; let i = index'
+    )
+        h2.accordion-header
+            button.accordion-button.py-4(
+                [ngClass]='{collapsed: collapsed[i]}',
+                (click)='toggle(i)',
+                data-bs-toggle='collapse',
+                href='javascript:void(0);'
+            )
+                | {{faq.question}}
+        .accordion-collapse.collapse.show(
+            #collapsibleSection
+        )
+            .accordion-body
+                | {{faq.answer}}
